@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Quest = require('quest')
 
 const objectSchema = mongoose.Schema({
     creationDate: {type: Date, required: false},
@@ -9,7 +10,7 @@ const objectSchema = mongoose.Schema({
     success: {type: [String], required:true},
     technicalDifficulty: {type: String, required:true},
     linkedQuests: {type: [Quest], required:true},
-    done: {type: String, required:true}
+    done: {type: Boolean, required:true}
 });
 
 module.exports = mongoose.model('Donjon', objectSchema);

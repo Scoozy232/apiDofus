@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Donjon = require('donjon')
 
 const userSchema = mongoose.Schema({
     email: {type: String, required: true},
