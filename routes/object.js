@@ -7,7 +7,7 @@ const auth = require('../middlewares/auth');
 
 // import des controllers
 // ils contiennent les méthodes vers lesquelles doivent pointer les requêtes
-const objectCtrl = require('../controllers/object');
+const objectCtrl = require('../controllers/donjon');
 
 // routes CRUD disponibles
 router.get('/', [auth, logger], objectCtrl.getObjectList);
