@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Quest = require('quest')
 
 const objectSchema = mongoose.Schema({
     creationDate: {type: Date, required: false},
@@ -9,7 +8,7 @@ const objectSchema = mongoose.Schema({
     level: {type: Number, required:true},
     success: {type: [String], required:true},
     technicalDifficulty: {type: String, required:true},
-    linkedQuests: {type: [Quest], required:true},
+    linkedQuests: {type: Array, required:true},
     done: {type: Boolean, required:true}
 });
 
