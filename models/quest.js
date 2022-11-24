@@ -6,4 +6,4 @@ const objectSchema = mongoose.Schema({
     active: {type: Boolean, required: false}
 });
 
-module.exports = mongoose.model('Object', objectSchema);
+module.exports = mongoose.model('Quest', objectSchema);
