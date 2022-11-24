@@ -1,9 +1,9 @@
-const Object = require('../models/donjon');
+const Donjon = require('../models/donjon');
 
 exports.getObjectList = (req, res, next) => {
     console.log('Méthode getObjectList');
 
-    Object.find()
+    Donjon.find()
         .then((list) => res.status(200).json(list))
         .catch((err) => {
             console.log(err);
@@ -13,7 +13,7 @@ exports.getObjectList = (req, res, next) => {
 
 exports.getObject = (req, res, next) => {
     console.log('Méthode getObject', req.params);
-    Object.findById(req.params.id)
+    Donjon.findById(req.params.id)
             .then((obj) => res.status(200).json(obj))
             .catch((err) => {
                 console.log(err);
@@ -24,7 +24,7 @@ exports.getObject = (req, res, next) => {
 exports.createObject = (req, res, next) => {
     console.log('Méthode createObject', req.body);
 
-    let obj = new Object({
+    let obj = new Donjon({
         name: req.body.name,
         weight: req.body.weight,
         url: req.body.url,
@@ -39,10 +39,10 @@ exports.createObject = (req, res, next) => {
 exports.updateObject = (req, res, next) => {
     console.log('Méthode updateObject ' + req.params.id, req.body);
 
-    Object.findById(req.params.id)
+    Donjon.findById(req.params.id)
         .then((obj) => {
             req.body.modificationDate = new Date();
-            Object.updateOne({ _id: obj.id}, req.body)
+            Donjon.updateOne({ _id: obj.id}, req.body)
                 .then((result) => res.status(200).json(result))
                 .catch((err) => res.status(500).json({message: 'CANNOT UPDATE', error: err}))
         })
@@ -52,7 +52,7 @@ exports.updateObject = (req, res, next) => {
 exports.deleteObject = (req, res, next) => {
     console.log('Méthode deleteObject ', req.params.id);
 
-    Object.findByIdAndDelete(req.params.id)
+    Donjon.findByIdAndDelete(req.params.id)
         .then((result) => {
          if (result) {
             res.status(200).json(result)
