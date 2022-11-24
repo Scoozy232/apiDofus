@@ -1,4 +1,4 @@
-const Object = require('../models/object');
+const Object = require('../models/donjon');
 
 exports.getObjectList = (req, res, next) => {
     console.log('Méthode getObjectList');

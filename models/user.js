@@ -6,7 +6,9 @@ const userSchema = mongoose.Schema({
     name: {type: String, required: true},
     creationDate: {type: Date, required: false},
     modificationDate: {type: Date, required: false},
-    active: {type: Boolean, required: false}
+    active: {type: Boolean, required: false},
+    dofusAcquired : {type : Array, required:false},
+    donjonsDone : {type : [Donjon], required:false}
 });
 
 module.exports = mongoose.model('User', userSchema);
