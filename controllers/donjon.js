@@ -1,5 +1,7 @@
 const Donjon = require('../models/donjon');
 
+// getAll + getById
+
 exports.getObjectList = (req, res, next) => {
     console.log('Méthode getObjectList');
 
@@ -21,46 +23,46 @@ exports.getObject = (req, res, next) => {
             })
 }
 
-exports.createObject = (req, res, next) => {
-    console.log('Méthode createObject', req.body);
-
-    let obj = new Donjon({
-        name: req.body.name,
-        weight: req.body.weight,
-        url: req.body.url,
-        creationDate: new Date(),
-        modificationDate: new Date(),
-        active: true
-    })
-
-    obj.save().then((saved) => res.status(200).json(saved)).catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec la creation'}))
-}
-
-exports.updateObject = (req, res, next) => {
-    console.log('Méthode updateObject ' + req.params.id, req.body);
-
-    Donjon.findById(req.params.id)
-        .then((obj) => {
-            req.body.modificationDate = new Date();
-            Donjon.updateOne({ _id: obj.id}, req.body)
-                .then((result) => res.status(200).json(result))
-                .catch((err) => res.status(500).json({message: 'CANNOT UPDATE', error: err}))
-        })
-        .catch(() => res.status(404).json({message: 'NOT FOUND'}))
-}
-
-exports.deleteObject = (req, res, next) => {
-    console.log('Méthode deleteObject ', req.params.id);
-
-    Donjon.findByIdAndDelete(req.params.id)
-        .then((result) => {
-         if (result) {
-            res.status(200).json(result)
-         } else {
-            res.status(500).json({message: 'ALREADY DELETED'})
-         }
-        })
-        .catch((err) => {
-            res.status(400).json({message: 'NOT FOUND', error: err})
-        })
-}
+// exports.createObject = (req, res, next) => {
+//     console.log('Méthode createObject', req.body);
+//
+//     let obj = new Donjon({
+//         name: req.body.name,
+//         weight: req.body.weight,
+//         url: req.body.url,
+//         creationDate: new Date(),
+//         modificationDate: new Date(),
+//         active: true
+//     })
+//
+//     obj.save().then((saved) => res.status(200).json(saved)).catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec la creation'}))
+// }
+//
+// exports.updateObject = (req, res, next) => {
+//     console.log('Méthode updateObject ' + req.params.id, req.body);
+//
+//     Donjon.findById(req.params.id)
+//         .then((obj) => {
+//             req.body.modificationDate = new Date();
+//             Donjon.updateOne({ _id: obj.id}, req.body)
+//                 .then((result) => res.status(200).json(result))
+//                 .catch((err) => res.status(500).json({message: 'CANNOT UPDATE', error: err}))
+//         })
+//         .catch(() => res.status(404).json({message: 'NOT FOUND'}))
+// }
+//
+// exports.deleteObject = (req, res, next) => {
+//     console.log('Méthode deleteObject ', req.params.id);
+//
+//     Donjon.findByIdAndDelete(req.params.id)
+//         .then((result) => {
+//          if (result) {
+//             res.status(200).json(result)
+//          } else {
+//             res.status(500).json({message: 'ALREADY DELETED'})
+//          }
+//         })
+//         .catch((err) => {
+//             res.status(400).json({message: 'NOT FOUND', error: err})
+//         })
+// }

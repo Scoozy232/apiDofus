@@ -2,55 +2,59 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {OAuth2Client} = require('google-auth-library');
-//
 const CLIENT_ID = process.env.CLIENT_ID;
 
 const client = new OAuth2Client(CLIENT_ID);
 
+//getUser + addDofus + addDonjon + deleteUser + updateUser +
+
 async function verify(token, req, res) {
-  const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: CLIENT_ID
-  });
-  const payload = ticket.getPayload();
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: CLIENT_ID
+    });
+    const payload = ticket.getPayload();
 //  const userid = payload['sub'];
 //  const userid = payload.sub;
 
-  console.log(payload);
+    console.log(payload);
 
-  User.findOne({email: payload.email})
-    .then((user) => {
-        if (!user) {
-            // create user
-            req.body.email = payload.email;
-            req.body.name = payload.name;
-            req.body.password = payload.sub + new Date().getTime();
-            bcrypt.hash(req.body.password, 10)
+    User.findOne({email: payload.email})
+        .then((user) => {
+            if (!user) {
+                // create user
+                req.body.email = payload.email;
+                req.body.name = payload.name;
+                req.body.password = payload.sub + new Date().getTime();
+                bcrypt.hash(req.body.password, 10)
                     .then((hash) => {
                         let user = new User({
-                                email: req.body.email,
-                                password: hash,
-                                name: req.body.name,
-                                creationDate: new Date(),
-                                modificationDate: new Date(),
-                                active: true
-                            });
+                            email: req.body.email,
+                            password: hash,
+                            name: req.body.name,
+                            dofusAcquired: req.body.dofusAcquired,
+                            donjonsDone: req.body.donjonsDone,
+                            roles : req.body.roles,
+                            creationDate: new Date(),
+                            modificationDate: new Date(),
+                            active: true
+                        });
 
                         user.save()
                             .then((saved) => res.status(200).json(saved))
-                            .catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec la creation'}))
+                            .catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec la creation user'}))
                     })
-                    .catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec le chiffrement'}))
-        } else {
-            const token = jwt.sign({userId: user._id},'RANDOM_TOKEN_SECRET', { expiresIn: '24h'});
-            user.password = '';
+                    .catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec le chiffrement user'}))
+            } else {
+                const token = jwt.sign({userId: user._id}, 'RANDOM_TOKEN_SECRET', {expiresIn: '24h'});
+                user.password = '';
 //            user.name = payload.name;
-            res.status(200).json({
-                token: token,
-                user: user
-            })
-        }
-    }).catch((error) => {
+                res.status(200).json({
+                    token: token,
+                    user: user
+                })
+            }
+        }).catch((error) => {
         res.status(500).json({message: 'Request Error'});
     })
 }
@@ -62,37 +66,42 @@ exports.getUserList = (req, res, next) => {
         .then((list) => res.status(200).json(list))
         .catch((err) => {
             console.log(err);
-            res.status(404).json({message: 'NOT FOUND'});
+            res.status(404).json({message: 'NOT FOUND list user'});
         })
 }
 
 exports.getUser = (req, res, next) => {
     console.log('Méthode getUser', req.params);
     User.findById(req.params.id)
-            .then((user) => res.status(200).json(user))
-            .catch((err) => {
-                console.log(err);
-                res.status(404).json({message: 'NOT FOUND'});
-            })
+        .then((user) => res.status(200).json(user))
+        .catch((err) => {
+            console.log(err);
+            res.status(404).json({message: 'NOT FOUND user id : ' . req.params});
+        })
 }
+
+//vérifier de pas mettre email en double
 
 exports.createUser = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
             let user = new User({
-                    email: req.body.email,
-                    password: hash,
-                    name: req.body.name,
-                    creationDate: new Date(),
-                    modificationDate: new Date(),
-                    active: true
-                });
+                email: req.body.email,
+                password: hash,
+                name: req.body.name,
+                dofusAcquired : [],
+                donjonsDone : [],
+                roles : [],
+                creationDate: new Date(),
+                modificationDate: new Date(),
+                active: true,
+            });
 
             user.save()
                 .then((saved) => res.status(200).json(saved))
-                .catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec la creation'}))
+                .catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec la creation user'}))
         })
-        .catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec le chiffrement'}))
+        .catch(() => res.status(500).json({message: 'API REST ERROR: Pb avec le chiffrement user'}))
 }
 
 exports.login = (req, res, next) => {
@@ -102,7 +111,7 @@ exports.login = (req, res, next) => {
     if (token) {
         verify(token, req, res).catch(console.error);
     } else {
-        User.findOne({ email: req.body.email })
+        User.findOne({email: req.body.email})
             .then((user) => {
                 if (!user) {
                     res.status(404).json({message: 'USER RESULT NULL'})
@@ -112,7 +121,7 @@ exports.login = (req, res, next) => {
                             if (!valid) {
                                 res.status(500).json({message: 'API REST ERROR: COMPARISON FAILED'})
                             } else {
-                                const token = jwt.sign({userId: user._id},'RANDOM_TOKEN_SECRET', { expiresIn: '24h'});
+                                const token = jwt.sign({userId: user._id}, 'RANDOM_TOKEN_SECRET', {expiresIn: '24h'});
                                 user.password = '';
                                 res.status(200).json({
                                     token: token,
@@ -127,7 +136,6 @@ exports.login = (req, res, next) => {
     }
 
 
-
 }
 
 exports.updateUser = (req, res, next) => {
@@ -136,7 +144,7 @@ exports.updateUser = (req, res, next) => {
     User.findById(req.params.id)
         .then((obj) => {
             req.body.modificationDate = new Date();
-            User.updateOne({ _id: obj.id}, req.body)
+            User.updateOne({_id: obj.id}, req.body)
                 .then((result) => res.status(200).json(result))
                 .catch((err) => res.status(500).json({message: 'CANNOT UPDATE', error: err}))
         })
@@ -148,11 +156,11 @@ exports.deleteUser = (req, res, next) => {
 
     User.findByIdAndDelete(req.params.id)
         .then((result) => {
-         if (result) {
-            res.status(200).json(result)
-         } else {
-            res.status(500).json({message: 'ALREADY DELETED'})
-         }
+            if (result) {
+                res.status(200).json(result)
+            } else {
+                res.status(500).json({message: 'ALREADY DELETED'})
+            }
         })
         .catch((err) => {
             res.status(400).json({message: 'NOT FOUND', error: err})
