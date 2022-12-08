@@ -76,7 +76,7 @@ exports.getUser = (req, res, next) => {
         .then((user) => res.status(200).json(user))
         .catch((err) => {
             console.log(err);
-            res.status(404).json({message: 'NOT FOUND user id : ' . req.params});
+            res.status(404).json({message: 'USER NOT FOUND'});
         })
 }
 
