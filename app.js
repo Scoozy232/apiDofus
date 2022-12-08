@@ -30,7 +30,7 @@ mongoose.connect(DB, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(bodyParser.json());
 
 // import des routes
-const objectRoutes = require('./routes/object');
+const objectRoutes = require('./routes/donjon');
 const userRoutes = require('./routes/user');
 
 app.use('/api/objects', objectRoutes);

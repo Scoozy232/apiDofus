@@ -12,8 +12,8 @@ const objectCtrl = require('../controllers/donjon');
 // routes CRUD disponibles
 router.get('/', [auth, logger], objectCtrl.getObjectList);
 router.get('/:id', [logger, auth], objectCtrl.getObject);
-router.post('/', [logger], objectCtrl.createObject);
-router.put('/:id', [], objectCtrl.updateObject);
-router.delete('/:id', logger, objectCtrl.deleteObject);
+// router.post('/', [logger], objectCtrl.createObject);
+// router.put('/:id', [], objectCtrl.updateObject);
+// router.delete('/:id', logger, objectCtrl.deleteObject);
 
 module.exports = router;
