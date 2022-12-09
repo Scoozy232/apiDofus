@@ -2,9 +2,11 @@ const express = require('express'); // framework
 const helmet = require('helmet'); // Configure HTTP Headers
 const bodyParser = require('body-parser'); // Parse the body in an object req.body
 const mongoose = require('mongoose'); // Database
+var cors = require('cors') //cors
 const compression = require('compression'); // Compression for quick server response
 
 const app = express(); // creation de l'application grace au framework
+app.use(cors())
 app.use(helmet());
 app.use(compression());
 
@@ -32,9 +34,13 @@ app.use(bodyParser.json());
 // import des routes
 const objectRoutes = require('./routes/donjon');
 const userRoutes = require('./routes/user');
+const dofusRoutes = require('./routes/dofus');
+const questRoutes = require('./routes/quest');
 
-app.use('/api/objects', objectRoutes);
+app.use('/api/donjon', objectRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/api/dofus', dofusRoutes);
+app.use('/api/quest', questRoutes);
 
 // exportation pour être utilisé par d'autres fichiers
 module.exports = app;
