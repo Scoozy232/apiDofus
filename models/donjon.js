@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 
-const objectSchema = mongoose.Schema({
-    creationDate: {type: Date, required: false},
-    modificationDate: {type: Date, required: false},
-    active: {type: Boolean, required: false},
-    name: {type: String, required:true},
-    level: {type: Number, required:true},
-    success: {type: [String], required:true},
-    technicalDifficulty: {type: String, required:true},
-    linkedQuests: {type: Array, required:true},
-    done: {type: Boolean, required:true}
+const donjonSchema = mongoose.Schema({
+    id: {type: String, required:true},
+    nom: {type: String, required:true},
+    niveau: {type: Number, required:true},
+    succes: {type: [String], required:true},
+    difficulte: {type: String, required:true},
+    conseil: {type: String, required:true},
+    quetes: {type: Array, required:true},
+    createDate: {type: Date, required: false},
+    updateDate: {type: Date, required: false},
+    isActive: {type: Boolean, required: false},
+    
+    //done: {type: Boolean, required:true}
 });
 
-module.exports = mongoose.model('Donjon', objectSchema);
+module.exports = mongoose.model('Donjon', donjonSchema);
