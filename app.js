@@ -3,7 +3,9 @@ const helmet = require('helmet'); // Configure HTTP Headers
 const bodyParser = require('body-parser'); // Parse the body in an object req.body
 const mongoose = require('mongoose'); // Database
 var cors = require('cors') //cors
+const swaggerUI = require("swagger-ui-express"); //swagger
 const compression = require('compression'); // Compression for quick server response
+const docs = require('./docs');
 
 const app = express(); // creation de l'application grace au framework
 app.use(cors())
@@ -41,6 +43,9 @@ app.use('/api/donjon', objectRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/api/dofus', dofusRoutes);
 app.use('/api/quest', questRoutes);
+
+
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(docs));
 
 // exportation pour être utilisé par d'autres fichiers
 module.exports = app;
