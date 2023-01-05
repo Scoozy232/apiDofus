@@ -6,16 +6,12 @@ const CLIENT_ID = process.env.CLIENT_ID;
 
 const client = new OAuth2Client(CLIENT_ID);
 
-//getUser + addDofus + addDonjon + deleteUser + updateUser +
-
 async function verify(token, req, res) {
     const ticket = await client.verifyIdToken({
         idToken: token,
         audience: CLIENT_ID
     });
     const payload = ticket.getPayload();
-//  const userid = payload['sub'];
-//  const userid = payload.sub;
 
     console.log(payload);
 
@@ -48,7 +44,6 @@ async function verify(token, req, res) {
             } else {
                 const token = jwt.sign({userId: user._id}, 'RANDOM_TOKEN_SECRET', {expiresIn: '24h'});
                 user.password = '';
-//            user.name = payload.name;
                 res.status(200).json({
                     token: token,
                     user: user

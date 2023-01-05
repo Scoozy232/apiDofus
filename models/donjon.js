@@ -11,8 +11,6 @@ const donjonSchema = mongoose.Schema({
     createDate: {type: Date, required: false},
     updateDate: {type: Date, required: false},
     isActive: {type: Boolean, required: false},
-    
-    //done: {type: Boolean, required:true}
 });
 
 module.exports = mongoose.model('Donjon', donjonSchema);

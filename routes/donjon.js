@@ -7,13 +7,10 @@ const auth = require('../middlewares/auth');
 
 // import des controllers
 // ils contiennent les méthodes vers lesquelles doivent pointer les requêtes
-const objectCtrl = require('../controllers/donjon');
+const donjonCtrl = require('../controllers/donjon');
 
 // routes CRUD disponibles
-router.get('/', [auth, logger], objectCtrl.getObjectList);
-router.get('/:id', [logger, auth], objectCtrl.getObject);
-// router.post('/', [logger], objectCtrl.createObject);
-// router.put('/:id', [], objectCtrl.updateObject);
-// router.delete('/:id', logger, objectCtrl.deleteObject);
+router.get('/', [auth, logger], donjonCtrl.getObjectList);
+router.get('/:id', [logger, auth], donjonCtrl.getObject);
 
 module.exports = router;
