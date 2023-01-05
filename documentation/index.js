@@ -1,8 +1,8 @@
 const basicInfo = require('./basicInfo');
-const servers = require('./servers');
+const servers = require('./server');
 const components = require('./components');
 const tags = require('./tags');
-const todos = require('./dofus');
+const dofus = require('./dofus');
 
 module.exports = {
     ...basicInfo,
