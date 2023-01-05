@@ -14,11 +14,18 @@ exports.getObjectList = (req, res, next) => {
 exports.getObject = (req, res, next) => {
     console.log('Méthode getObject quest', req.params);
     Object.findById(req.params.id)
-            .then((obj) => res.status(200).json(obj))
-            .catch((err) => {
-                console.log(err);
-                res.status(404).json({message: 'NOT FOUND'});
-            })
+        .then(
+            (obj) => {
+                if (obj === null) {
+                    res.status(404).json({message: 'NOT FOUND'});
+                } else {
+                    res.status(200).json(obj)
+                }
+            }
+        ).catch((err) => {
+        console.log(err);
+        res.status(404).json({message: 'NOT FOUND'});
+    })
 }
 
 // exports.createObject = (req, res, next) => {

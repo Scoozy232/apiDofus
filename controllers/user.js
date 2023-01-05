@@ -34,7 +34,7 @@ async function verify(token, req, res) {
                             name: req.body.name,
                             dofusAcquired: req.body.dofusAcquired,
                             donjonsDone: req.body.donjonsDone,
-                            roles : req.body.roles,
+                            roles: req.body.roles,
                             creationDate: new Date(),
                             modificationDate: new Date(),
                             active: true
@@ -73,11 +73,18 @@ exports.getUserList = (req, res, next) => {
 exports.getUser = (req, res, next) => {
     console.log('Méthode getUser', req.params);
     User.findById(req.params.id)
-        .then((user) => res.status(200).json(user))
-        .catch((err) => {
-            console.log(err);
-            res.status(404).json({message: 'USER NOT FOUND'});
-        })
+        .then(
+            (obj) => {
+                if (obj === null) {
+                    res.status(404).json({message: 'NOT FOUND'});
+                } else {
+                    res.status(200).json(obj)
+                }
+            }
+        ).catch((err) => {
+        console.log(err);
+        res.status(404).json({message: 'USER NOT FOUND'});
+    })
 }
 
 //vérifier de pas mettre email en double
@@ -89,9 +96,9 @@ exports.createUser = (req, res, next) => {
                 email: req.body.email,
                 password: hash,
                 name: req.body.name,
-                dofusAcquired : [],
-                donjonsDone : [],
-                roles : [],
+                dofusAcquired: [],
+                donjonsDone: [],
+                roles: [],
                 creationDate: new Date(),
                 modificationDate: new Date(),
                 active: true,
