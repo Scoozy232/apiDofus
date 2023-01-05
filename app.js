@@ -38,7 +38,7 @@ const objectRoutes = require('./routes/donjon');
 const userRoutes = require('./routes/user');
 const dofusRoutes = require('./routes/dofus');
 const questRoutes = require('./routes/quest');
-const docs = require('./docs');
+const docs = require('./documentation');
 
 app.use('/api/donjon', objectRoutes);
 app.use('/api/auth', userRoutes);
@@ -46,7 +46,7 @@ app.use('/api/dofus', dofusRoutes);
 app.use('/api/quest', questRoutes);
 
 
-app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(docs));
+app.use('/api/api-docs',swaggerUI.serve,swaggerUI.setup(docs));
 
 // exportation pour être utilisé par d'autres fichiers
 module.exports = app;
