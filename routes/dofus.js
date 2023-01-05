@@ -7,13 +7,10 @@ const auth = require('../middlewares/auth');
 
 // import des controllers
 // ils contiennent les méthodes vers lesquelles doivent pointer les requêtes
-const objectCtrl = require('../controllers/dofus');
+const dofusCtrl = require('../controllers/dofus');
 
 // routes CRUD disponibles
-router.get('/', [auth, logger], objectCtrl.getObjectList);
-router.get('/:id', [logger, auth], objectCtrl.getObject);
-// router.post('/', [logger], objectCtrl.createObject);
-// router.put('/:id', [], objectCtrl.updateObject);
-// router.delete('/:id', logger, objectCtrl.deleteObject);
+router.get('/', [auth, logger], dofusCtrl.getObjectList);
+router.get('/:id', [logger, auth], dofusCtrl.getObject);
 
 module.exports = router;
