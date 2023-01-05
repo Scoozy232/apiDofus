@@ -2,10 +2,10 @@ const express = require('express'); // framework
 const helmet = require('helmet'); // Configure HTTP Headers
 const bodyParser = require('body-parser'); // Parse the body in an object req.body
 const mongoose = require('mongoose'); // Database
-var cors = require('cors') //cors
+const cors = require('cors') //cors
 const swaggerUI = require("swagger-ui-express"); //swagger
 const compression = require('compression'); // Compression for quick server response
-const docs = require('./docs');
+
 
 const app = express(); // creation de l'application grace au framework
 app.use(cors())
@@ -38,6 +38,7 @@ const objectRoutes = require('./routes/donjon');
 const userRoutes = require('./routes/user');
 const dofusRoutes = require('./routes/dofus');
 const questRoutes = require('./routes/quest');
+const docs = require('./docs');
 
 app.use('/api/donjon', objectRoutes);
 app.use('/api/auth', userRoutes);
