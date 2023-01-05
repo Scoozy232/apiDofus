@@ -173,3 +173,55 @@ exports.deleteUser = (req, res, next) => {
             res.status(400).json({message: 'NOT FOUND', error: err})
         })
 }
+
+exports.addDofusToUser = (req, res, next) => {
+    console.log('Méthode addDofus ' + req.params.id, req.body);
+
+    User.findById(req.params.id)
+        .then((obj) => {
+            if (req.body.dofusAcquired == null){
+                return res.status(404).json({message: 'RIEN A AJOUTER'})
+            }
+            if (!obj.dofusAcquired.includes(req.body.dofusAcquired)){
+                req.body.modificationDate = new Date();
+                obj.dofusAcquired.push(req.body.dofusAcquired);
+                req.body.dofusAcquired = obj.dofusAcquired;
+            } else {
+                return res.status(404).json({message: 'DEJA ACQUIS'})
+            }
+            User.updateOne({_id: obj.id}, {
+                dofusAcquired : req.body.dofusAcquired,
+                modificationDate: req.body.modificationDate
+            })
+                .then((result) => res.status(200).json(result))
+                .catch((err) => res.status(500).json({message: 'CANNOT UPDATE', error: err}))
+        })
+        .catch(() => res.status(404).json({message: 'NOT FOUND'}))
+}
+
+exports.addDonjonToUser = (req, res, next) => {
+    console.log('Méthode addDonjon ' + req.params.id, req.body);
+
+    User.findById(req.params.id)
+        .then((obj) => {
+            if (req.body.donjonsDone == null){
+                return res.status(404).json({message: 'RIEN A AJOUTER'})
+            }
+            if (!obj.donjonsDone.includes(req.body.donjonsDone)){
+                req.body.modificationDate = new Date();
+                obj.donjonsDone.push(req.body.donjonsDone);
+                req.body.donjonsDone = obj.donjonsDone;
+            } else {
+                return res.status(404).json({message: 'DEJA TERMINE'})
+            }
+            User.updateOne({_id: obj.id}, {
+                donjonsDone : req.body.donjonsDone,
+                modificationDate: req.body.modificationDate
+            })
+                .then((result) => res.status(200).json(result))
+                .catch((err) => res.status(500).json({message: 'CANNOT UPDATE', error: err}))
+        })
+        .catch(() => res.status(404).json({message: 'NOT FOUND'}))
+}
+
+

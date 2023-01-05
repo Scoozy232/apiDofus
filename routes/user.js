@@ -15,6 +15,8 @@ router.get('/:id', [auth, logger], userCtrl.getUser);
 router.post('/signup', [logger], userCtrl.createUser);
 router.post('/login', [logger], userCtrl.login);
 router.put('/:id', [auth, logger], userCtrl.updateUser);
+router.put('/dofus/:id', [auth, logger], userCtrl.addDofusToUser);
+router.put('/donjon/:id', [auth, logger], userCtrl.addDonjonToUser);
 router.delete('/:id', [auth, logger], userCtrl.deleteUser);
 
 module.exports = router;
