@@ -4,6 +4,7 @@ const bodyParser = require('body-parser'); // Parse the body in an object req.bo
 const mongoose = require('mongoose'); // Database
 const cors = require('cors') //cors
 const swaggerUI = require("swagger-ui-express"); //swagger
+const swaggerJsDoc = require("swagger-jsdoc");
 const compression = require('compression'); // Compression for quick server response
 
 
@@ -39,7 +40,7 @@ const userRoutes = require('./routes/user');
 const dofusRoutes = require('./routes/dofus');
 const questRoutes = require('./routes/quest');
 const soapRoutes = require('./routes/soap');
-const docs = require('./documentation');
+
 
 app.use('/api/donjon', objectRoutes);
 app.use('/api/auth', userRoutes);
@@ -48,7 +49,33 @@ app.use('/api/quest', questRoutes);
 app.use('/api/soap', soapRoutes);
 
 
-app.use('/api/api-docs',swaggerUI.serve,swaggerUI.setup(docs));
+const options = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "Dofus API",
+        version: "1.0.0",
+        description: "A simple Dofus API",
+        contact: {
+            name: "Florain Aubin & Emma Loisel",
+            email: "prenom.nom@Ynov.com",
+            url: "https://github.com/Scoozy232/apiDofus.git",
+          },
+      },
+  
+      servers: [
+        {
+            url: "http://localhost:3001/api",
+            description: "Local server",
+        },
+      ],
+    },
+    apis: ["./Routes/*.js"],
+  };
+  
+  const specs = swaggerJsDoc(options);
+  app.use("/api/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+
 
 
 
