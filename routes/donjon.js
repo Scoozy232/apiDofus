@@ -70,7 +70,7 @@ const donjonCtrl = require('../controllers/donjon');
 
 /**
  * @swagger
- * /Donjon:
+ * /donjon:
  *   get:
  *     summary: Retourne tous les Donjons
  *     tags: [Donjon]
@@ -88,7 +88,7 @@ router.get('/', [auth, logger], donjonCtrl.getObjectList);
 
 /**
  * @swagger
- * /Donjon/{id}:
+ * /donjon/{id}:
  *   get:
  *     summary: retourne un Donjon par son id
  *     tags: [Donjon]

@@ -73,7 +73,7 @@ const dofusCtrl = require('../controllers/dofus');
 
 /**
  * @swagger
- * /Dofus:
+ * /dofus:
  *   get:
  *     summary: Retourne tous les Dofuss
  *     tags: [Dofus]
@@ -90,7 +90,7 @@ router.get('/', [auth, logger], dofusCtrl.getObjectList);
 
 /**
  * @swagger
- * /Dofus/{id}:
+ * /dofus/{id}:
  *   get:
  *     summary: retourne un Dofus par son id
  *     tags: [Dofus]

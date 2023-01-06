@@ -62,7 +62,7 @@ const questCtrl = require('../controllers/quest');
 
 /**
  * @swagger
- * /Quest:
+ * /quest:
  *   get:
  *     summary: Retourne tous les Quests
  *     tags: [Quest]
@@ -80,7 +80,7 @@ router.get('/', [auth, logger], questCtrl.getObjectList);
 
 /**
  * @swagger
- * /Quest/{id}:
+ * /quest/{id}:
  *   get:
  *     summary: retourne un Quest par son id
  *     tags: [Quest]
