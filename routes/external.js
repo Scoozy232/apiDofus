@@ -9,5 +9,6 @@ const logger = require('../middlewares/logger');
 const externalCtrl = require('../controllers/external');
 
 router.get('/stuffDoCrit', [logger], externalCtrl.getStuffFullCrit);
+router.get('/bestItem', [logger], externalCtrl.getBestItem);
 
 module.exports = router;

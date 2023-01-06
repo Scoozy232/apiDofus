@@ -154,6 +154,18 @@ exports.getStuffFullCrit = (req, res, next) => {
 
 }
 
+exports.getBestItem = (req, res, next) => {
+    console.log('Méthode getBestItem');
+
+    let url = 'https://fr.dofus.dofapi.fr/equipments/7113';
+
+    request(url, (error, response, body) => {
+
+        return res.json(JSON.parse(body));
+    });
+
+}
+
 function sendResponse() {
 
     responseNumber++;
