@@ -170,6 +170,11 @@ function sendResponse() {
 
     responseNumber++;
 
-    return responseNumber === 16;
+    if (responseNumber === 16){
+        responseNumber = 0;
+        return true;
+    }
+
+    return false;
 
 }
