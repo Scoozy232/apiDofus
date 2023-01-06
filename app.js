@@ -89,4 +89,3 @@ const options = {
 module.exports = app;
 
 
-// navigator.storage et/ou window.sessionStorage et/ou window.localStorage et/ou cookies
