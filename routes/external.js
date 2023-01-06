@@ -84,5 +84,6 @@ const externalCtrl = require('../controllers/external');
  *                 $ref: '#/components/schemas/Equipment'
  */
 router.get('/stuffDoCrit', [logger], externalCtrl.getStuffFullCrit);
+router.get('/bestItem', [logger], externalCtrl.getBestItem);
 
 module.exports = router;

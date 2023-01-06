@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env PORT=3001 DB_ID=EmmaLoisel DB_PW=toucan node server.js"
+    "startLocal": "cross-env PORT=3001 DB_ID=EmmaLoisel DB_PW=toucan node server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,10 +23,13 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.2",
     "nodemon": "^2.0.20",
-    "swagger-jsdoc": "^6.2.7",
+    "swagger-jsdoc": "^6.2",
+    "request": "^2.88.2.7",
     "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
-    "request": "^2.88.2"
+  },
+  "engines": {
+    "node": "16.18.0"
   }
 }
