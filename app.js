@@ -27,9 +27,9 @@ const dbPW = process.env.DB_PW;
 const DB = 'mongodb+srv://' + dbID + ':' + dbPW + '@cluster0.y10v2kc.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose.connect(DB, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => console.log('Connected to MongoDB'))
+    .then(() => console.log('Connexion à MongoDB'))
     .catch((err) => {
-        console.log('MongoDB ERROR CONNECT', err)
+        console.log('MongoDB erreur de connexion', err)
     });
 
 app.use(bodyParser.json());
@@ -40,6 +40,7 @@ const userRoutes = require('./routes/user');
 const dofusRoutes = require('./routes/dofus');
 const questRoutes = require('./routes/quest');
 const soapRoutes = require('./routes/soap');
+const externalRoutes = require('./routes/external');
 
 
 app.use('/api/donjon', objectRoutes);
@@ -47,6 +48,7 @@ app.use('/api/auth', userRoutes);
 app.use('/api/dofus', dofusRoutes);
 app.use('/api/quest', questRoutes);
 app.use('/api/soap', soapRoutes);
+app.use('/api/external', externalRoutes);
 
 
 const options = {
