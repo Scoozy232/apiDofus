@@ -68,7 +68,11 @@ const options = {
       servers: [
         {
             url: "http://localhost:3001/api",
-            description: "Local server",
+            description: "Server en local",
+        },
+        {
+            url: "https://dofus-app.herokuapp.com/api",
+            description: "Server deployer",
         },
       ],
     },
