@@ -59,7 +59,7 @@ const options = {
         version: "1.0.0",
         description: "A simple Dofus API",
         contact: {
-            name: "Florain Aubin & Emma Loisel",
+            name: "Florian Aubin & Emma Loisel",
             email: "prenom.nom@Ynov.com",
             url: "https://github.com/Scoozy232/apiDofus.git",
           },

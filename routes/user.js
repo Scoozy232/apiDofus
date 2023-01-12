@@ -31,7 +31,7 @@ const userCtrl = require('../controllers/user');
  *           description: Nom / pseudo de l'utilisateur
  *         dofusAcquired:
  *           type: array
- *           description: Liste des dofus acquis par l'utilisateur 
+ *           description: Liste des dofus acquis par l'utilisateur
  *         donjonsDone:
  *           type: array
  *           description: Liste des donjons réamiser par l'utilisateur
@@ -149,6 +149,7 @@ const userCtrl = require('../controllers/user');
  */
 router.get('/', [auth, logger], userCtrl.getUserList);
 
+router.get('/isConnected', [auth, logger], userCtrl.isConnected);
 
 /**
  * @swagger
@@ -174,6 +175,7 @@ router.get('/', [auth, logger], userCtrl.getUserList);
  *         description: L'utilisateur n'a pas été trouvé
  */
 router.get('/:id', [auth, logger], userCtrl.getUser);
+
 
 /**
  * @swagger
