@@ -85,7 +85,7 @@ exports.getUser = (req, res, next) => {
 
 exports.isConnected = (req, res, next) => {
     console.log('Méthode isConnected', req.params);
-    res.status(200).json();
+    res.status(200).json({message: 'CONNECTED'});
 }
 
 //vérifier de pas mettre email en double
