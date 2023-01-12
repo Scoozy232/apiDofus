@@ -64,7 +64,7 @@ const options = {
             url: "https://github.com/Scoozy232/apiDofus.git",
           },
       },
-  
+
       servers: [
         {
             url: "http://localhost:3001/api",
@@ -76,9 +76,9 @@ const options = {
         },
       ],
     },
-    apis: ["./routes/*.js"],
+    apis: [`${__dirname}/routes/*.js`],
   };
-  
+
   const specs = swaggerJsDoc(options);
   app.use("/api/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 

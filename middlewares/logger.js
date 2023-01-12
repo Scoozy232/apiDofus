@@ -41,7 +41,8 @@ module.exports = (req, res, next) => { // next() sert à passer le relai au midd
 
 
         next();
-    } catch {
+    } catch (e){
+        console.log(e.message)
         res.status(501).json({message: 'Erreur au niveau du middleware : logger'})
     }
 };
