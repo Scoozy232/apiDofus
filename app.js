@@ -82,7 +82,10 @@ const options = {
   const specs = swaggerJsDoc(options);
   app.use("/api/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-
+  app.get("/healthz", (req, res) => {
+    res.json({ message: "OK" });
+  });
+  
 
 
 // exportation pour être utilisé par d'autres fichiers
