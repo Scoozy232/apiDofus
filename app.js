@@ -71,7 +71,7 @@ const options = {
             description: "Server en local",
         },
         {
-            url: "https://dofus-app.herokuapp.com/api",
+            url: "https://dofus-api-ynvz.onrender.com/api",
             description: "Server deployer",
         },
       ],
@@ -84,6 +84,7 @@ const options = {
 
   app.get("/healthz", (req, res) => {
     res.json({ message: "OK" });
+    console.log("ok")
   });
   
 
